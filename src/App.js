@@ -1,4 +1,5 @@
-function App() {
+
+export default function App() {
   return (
     <div className="app">
       <Header />
@@ -40,5 +41,3 @@ function UserStatus() {
     </footer>
   )
 }
-
-export default App();

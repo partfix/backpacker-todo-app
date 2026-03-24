@@ -1,4 +1,4 @@
-export default function App() {
+function App() {
   return (
     <div className="app">
       <Header />
@@ -11,7 +11,7 @@ export default function App() {
 
 function Header() {
   return (
-    <h1>Hello, World</h1>
+    <h1>BackPacker</h1>
   );
 }
 
@@ -40,3 +40,5 @@ function UserStatus() {
     </footer>
   )
 }
+
+export default App();

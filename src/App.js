@@ -25,10 +25,9 @@ function UserForm() {
     <form className="add-form">
       <span>What are we bringing today?</span>
       <select>
-        <option value={1}>1</option>
-        <option value={2}>2</option>
-        <option value={3}>3</option>
+        {Array.from({ length: 20 }, (_, i) => i + 1).map(num => <option value={num} key={num}>{num}</option>)}
       </select>
+      <input type="text" name="text" placeholder="What's on your mind?"></input>
     </form>
   );
 }
@@ -37,7 +36,7 @@ function UserPackingList() {
   return (
     <div className="list">
       <ul>
-        {contextSample.map((item) => <Item items={item} />)}
+        {contextSample.map((item) => <Item items={item} key={item.id} />)}
       </ul>
     </div>
   );

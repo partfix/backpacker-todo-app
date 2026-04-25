@@ -21,13 +21,21 @@ function Header() {
 }
 
 function UserForm() {
+
+  function handleSubmit(e) {
+    e.preventDefault();
+    console.log(e);
+  }
+
+
   return (
-    <form className="add-form">
+    <form className="add-form" onSubmit={handleSubmit}>
       <span>What are we bringing today?</span>
       <select>
         {Array.from({ length: 20 }, (_, i) => i + 1).map(num => <option value={num} key={num}>{num}</option>)}
       </select>
       <input type="text" name="text" placeholder="What's on your mind?"></input>
+      <button>Add this</button>
     </form>
   );
 }

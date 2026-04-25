@@ -44,7 +44,9 @@ function UserPackingList() {
 function Item({ items }) {
   return (
     <li>
-      <span>{items.quantity} {items.description}</span>
+      <span style={items.packed ? { textDecoration: "line-through" } : { textDecoration: "none" }}>
+        {items.quantity} {items.description}
+      </span>
       <button>❌</button>
     </li>
   )

@@ -22,9 +22,14 @@ function Header() {
 
 function UserForm() {
   return (
-    <div className="add-form">
-      <span>Hi there this is backpacker</span>
-    </div>
+    <form className="add-form">
+      <span>What are we bringing today?</span>
+      <select>
+        <option value={1}>1</option>
+        <option value={2}>2</option>
+        <option value={3}>3</option>
+      </select>
+    </form>
   );
 }
 

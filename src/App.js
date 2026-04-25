@@ -3,7 +3,6 @@ const contextSample = [
   { id: 2, description: "Clothes", quantity: 2, packed: true }
 ];
 
-
 export default function App() {
   return (
     <div className="app">
@@ -38,7 +37,6 @@ function UserPackingList() {
     </div>
   );
 }
-
 
 function Item({ items }) {
   return (

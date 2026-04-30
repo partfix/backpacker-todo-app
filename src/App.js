@@ -33,6 +33,7 @@ function UserForm() {
       <span>What are we bringing today?</span>
       <select>
         {Array.from({ length: 20 }, (_, i) => i + 1).map(num => <option value={num} key={num}>{num}</option>)}
+        {/*this add empty array, and render it all by looping inside the option*/}
       </select>
       <input type="text" name="text" placeholder="What's on your mind?"></input>
       <button>Add this</button>
@@ -67,4 +68,4 @@ function UserStatus() {
       <em>You have (items) item on your list, you already packed (items) (items%)</em>
     </footer>
   )
-}
+} 

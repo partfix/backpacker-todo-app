@@ -26,6 +26,7 @@ function UserForm() {
   // to store data from the form itself not the dom
   const [description, setDescription] = useState('');
   const [option, setOption] = useState(1);
+  const [duration, setDuration] = useState(1);
 
   function handleSubmit(e) {
     e.preventDefault();
@@ -37,6 +38,7 @@ function UserForm() {
 
     setDescription('');
     setOption(1);
+    setDuration(1);
 
   }
 
@@ -44,15 +46,19 @@ function UserForm() {
   return (
     <form className="add-form" onSubmit={handleSubmit}>
       <span>What are we bringing today?</span>
-      <select value={option} onChange={(e) => setOption(Number(e.target.value))}>
-        {Array.from({ length: 20 }, (_, i) => i + 1).map(num => <option value={num} key={num}>{num}</option>)}
-        {/*this add empty array, and render it all by looping inside the option*/}
-      </select>
       <input type="text" name="text"
         placeholder="What's on your mind?"
         value={description}
         onChange={(e) => setDescription(e.target.value)}>
       </input>
+      <select value={option} onChange={(e) => setOption(Number(e.target.value))}>
+        {Array.from({ length: 20 }, (_, i) => i + 1).map(num => <option value={num} key={num}>{num}</option>)}
+        {/*this add empty array, and render it all by looping inside the option*/}
+      </select>
+      <span>duration </span>
+      <select value={duration} onChange={(e) => e.target.value}>
+        {Array.from({ length: 31 }, (_, i) => i + 1).map(num => <option value={num} key={num}>{num}</option>)}
+      </select>
       <button>Add this</button>
     </form>
   );

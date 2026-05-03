@@ -33,7 +33,7 @@ function UserForm() {
 
     if (!description) return;
 
-    const newData = { description, option, packed: false, id: Date.now() }
+    const newData = { id: Date.now(), description, quantity: option, duration: duration, packed: false }
     console.log(newData);
 
     setDescription('');
@@ -56,7 +56,7 @@ function UserForm() {
         {/*this add empty array, and render it all by looping inside the option*/}
       </select>
       <span>duration </span>
-      <select value={duration} onChange={(e) => e.target.value}>
+      <select value={duration} onChange={(e) => setDuration(Number(e.target.value))}>
         {Array.from({ length: 31 }, (_, i) => i + 1).map(num => <option value={num} key={num}>{num}</option>)}
       </select>
       <button>Add this</button>

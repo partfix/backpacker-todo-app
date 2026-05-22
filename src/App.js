@@ -12,6 +12,7 @@ export default function App() {
       <UserForm />
       <UserPackingList />
       <UserStatus />
+      <CreateBox />
     </div>
   )
 }
@@ -91,4 +92,4 @@ function UserStatus() {
       <em>You have (items) item on your list, you already packed (items) (items%)</em>
     </footer>
   )
-} 
+}

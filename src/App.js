@@ -12,7 +12,6 @@ export default function App() {
       <UserForm />
       <UserPackingList />
       <UserStatus />
-      <CreateBox />
     </div>
   )
 }
@@ -34,7 +33,7 @@ function UserForm() {
 
     if (!description) return;
 
-    const newData = { id: Date.now(), description, quantity: option, duration: duration, packed: false }
+    const newData = { id: Date.now(), description: description, quantity: option, duration: duration, packed: false }
     console.log(newData);
 
     setDescription('');
@@ -47,15 +46,18 @@ function UserForm() {
   return (
     <form className="add-form" onSubmit={handleSubmit}>
       <span>What are we bringing today?</span>
+
       <input type="text" name="text"
         placeholder="What's on your mind?"
         value={description}
         onChange={(e) => setDescription(e.target.value)}>
       </input>
+
       <select value={option} onChange={(e) => setOption(Number(e.target.value))}>
         {Array.from({ length: 20 }, (_, i) => i + 1).map(num => <option value={num} key={num}>{num}</option>)}
         {/*this add empty array, and render it all by looping inside the option*/}
       </select>
+
       <span>duration </span>
       <select value={duration} onChange={(e) => setDuration(Number(e.target.value))}>
         {Array.from({ length: 31 }, (_, i) => i + 1).map(num => <option value={num} key={num}>{num}</option>)}

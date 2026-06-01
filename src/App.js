@@ -55,7 +55,7 @@ function UserForm() {
 
       <select value={option} onChange={(e) => setOption(Number(e.target.value))}>
         {Array.from({ length: 20 }, (_, i) => i + 1).map(num => <option value={num} key={num}>{num}</option>)}
-        {/*this add empty array, and render it all by looping inside the option*/}
+        {/*to render array to loop until 20*/}
       </select>
 
       <span>duration </span>

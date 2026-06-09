@@ -1,16 +1,22 @@
 import { useState } from "react";
 
-const contextSample = [
+/*const DataSample = [
   { id: 1, description: "Documents", quantity: 1, packed: false },
   { id: 2, description: "Clothes", quantity: 2, packed: true }
-];
+];*/
 
-export default function App() {
+export default function App() { // Grandparent 
+  const [items, setItems] = useState([])
+
+  function handleItems(item) {
+    setItems(items => [...items, item]) //store inside of the state
+  }
+
   return (
     <div className="app">
       <Header />
-      <UserForm />
-      <UserPackingList />
+      <UserForm onAdd={handleItems} /> {/*we can pass anything as a props including function*/}
+      <UserPackingList items={items} />
       <UserStatus />
     </div>
   )
@@ -22,26 +28,27 @@ function Header() {
   );
 }
 
-function UserForm() {
+function UserForm({ onAdd }) {
   // to store data from the form itself not the dom
   const [description, setDescription] = useState('');
   const [option, setOption] = useState(1);
   const [duration, setDuration] = useState(1);
+
+
 
   function handleSubmit(e) {
     e.preventDefault();
 
     if (!description) return;
 
-    const newData = { id: Date.now(), description: description, quantity: option, duration: duration, packed: false }
-    console.log(newData);
+    const newData = { id: Date.now(), description, option, duration, packed: false }
+    onAdd(newData)
 
     setDescription('');
     setOption(1);
     setDuration(1);
 
   }
-
 
   return (
     <form className="add-form" onSubmit={handleSubmit}>
@@ -67,11 +74,11 @@ function UserForm() {
   );
 }
 
-function UserPackingList() {
+function UserPackingList({ items }) {
   return (
     <div className="list">
       <ul>
-        {contextSample.map((item) => <Item items={item} key={item.id} />)}
+        {items.map((item) => <Item items={item} key={item.id} />)}
       </ul>
     </div>
   );
@@ -81,12 +88,13 @@ function Item({ items }) {
   return (
     <li>
       <span style={items.packed ? { textDecoration: "line-through" } : { textDecoration: "none" }}>
-        {items.quantity} {items.description}
+        {items.option} {items.quantity} {items.description}
       </span>
       <button>❌</button>
     </li>
   )
 }
+
 
 function UserStatus() {
   return (

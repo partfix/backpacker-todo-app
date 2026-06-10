@@ -10,13 +10,21 @@ export default function App() { // Grandparent
 
   function handleItems(item) {
     setItems(items => [...items, item]) //store inside of the state
+    //we are using items.
   }
 
+  function handleDelete(characId) {
+    setItems(items => items.filter(items => items.id !== characId))
+  }
+
+  function handleAllDelete() {
+    setItems(items => items.filter(items => items.id === true))
+  }
   return (
     <div className="app">
       <Header />
-      <UserForm onAdd={handleItems} /> {/*we can pass anything as a props including function*/}
-      <UserPackingList items={items} />
+      <UserForm onAdd={handleItems} onAllDelete={handleAllDelete} /> {/*we can pass anything as a props including function*/}
+      <UserPackingList items={items} onDelete={handleDelete} />
       <UserStatus />
     </div>
   )
@@ -42,6 +50,7 @@ function UserForm({ onAdd }) {
     if (!description) return;
 
     const newData = { id: Date.now(), description, option, duration, packed: false }
+
     onAdd(newData)
 
     setDescription('');
@@ -74,23 +83,24 @@ function UserForm({ onAdd }) {
   );
 }
 
-function UserPackingList({ items }) {
+function UserPackingList({ items, onDelete, onAllDelete }) {
   return (
     <div className="list">
       <ul>
-        {items.map((item) => <Item items={item} key={item.id} />)}
+        {items.map((item) => <Item items={item} onDelete={onDelete} key={item.id} />)}
       </ul>
+      <button onClick={() => onAllDelete(items.id)}>Delete all</button>
     </div>
   );
 }
 
-function Item({ items }) {
+function Item({ items, onDelete }) {
   return (
     <li>
       <span style={items.packed ? { textDecoration: "line-through" } : { textDecoration: "none" }}>
         {items.option} {items.quantity} {items.description}
       </span>
-      <button>❌</button>
+      <button onClick={() => onDelete(items.id)}>❌</button>
     </li>
   )
 }

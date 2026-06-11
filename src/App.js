@@ -1,9 +1,5 @@
 import { useState } from "react";
 
-/*const DataSample = [
-  { id: 1, description: "Documents", quantity: 1, packed: false },
-  { id: 2, description: "Clothes", quantity: 2, packed: true }
-];*/
 
 export default function App() { // Grandparent 
   const [items, setItems] = useState([])
@@ -14,17 +10,20 @@ export default function App() { // Grandparent
   }
 
   function handleDelete(characId) {
-    setItems(items => items.filter(items => items.id !== characId))
+    setItems(items => items.filter(items => items.id !== characId)) //delete item
   }
 
-  function handleAllDelete() {
-    setItems(items => items.filter(items => items.id === true))
+
+  function strike(id) {
+    setItems((items) => items.map((item) => item.id === id ? { ...item, packed: !item.packed } : item)) // strike-through
   }
+
+
   return (
     <div className="app">
       <Header />
-      <UserForm onAdd={handleItems} onAllDelete={handleAllDelete} /> {/*we can pass anything as a props including function*/}
-      <UserPackingList items={items} onDelete={handleDelete} />
+      <UserForm onAdd={handleItems} /> {/*we can pass anything as a props including function*/}
+      <UserPackingList items={items} onDelete={handleDelete} onToogle={strike} />
       <UserStatus />
     </div>
   )
@@ -50,7 +49,7 @@ function UserForm({ onAdd }) {
     if (!description) return;
 
     const newData = { id: Date.now(), description, option, duration, packed: false }
-
+    console.log(newData);
     onAdd(newData)
 
     setDescription('');
@@ -83,21 +82,21 @@ function UserForm({ onAdd }) {
   );
 }
 
-function UserPackingList({ items, onDelete, onAllDelete }) {
+function UserPackingList({ items, onDelete, onToogle }) {
   return (
     <div className="list">
       <ul>
-        {items.map((item) => <Item items={item} onDelete={onDelete} key={item.id} />)}
+        {items.map((item) => <Item items={item} onDelete={onDelete} onToogleItem={onToogle} key={item.id} />)}
       </ul>
-      <button onClick={() => onAllDelete(items.id)}>Delete all</button>
     </div>
   );
 }
 
-function Item({ items, onDelete }) {
+function Item({ items, onDelete, onToogleItem }) {
   return (
     <li>
-      <span style={items.packed ? { textDecoration: "line-through" } : { textDecoration: "none" }}>
+      <input type="checkbox" value={items.packed} onChange={() => onToogleItem(items.id)} />
+      <span style={items.packed ? { textDecoration: "line-through" } : {}}>
         {items.option} {items.quantity} {items.description}
       </span>
       <button onClick={() => onDelete(items.id)}>❌</button>

@@ -4,6 +4,9 @@ import { useState } from "react";
 export default function App() { // Grandparent 
   const [items, setItems] = useState([])
 
+
+
+
   function handleItems(item) {
     setItems(items => [...items, item]) //store inside of the state
     //we are using items.
@@ -24,7 +27,7 @@ export default function App() { // Grandparent
       <Header />
       <UserForm onAdd={handleItems} /> {/*we can pass anything as a props including function*/}
       <UserPackingList items={items} onDelete={handleDelete} onToogle={strike} />
-      <UserStatus />
+      <UserStatus items={items} />
     </div>
   )
 }
@@ -105,10 +108,20 @@ function Item({ items, onDelete, onToogleItem }) {
 }
 
 
-function UserStatus() {
+function UserStatus({ items }) {
+  if (!items.length) {
+    return (
+      <p className="stats"><em>Hey you goatta add something here, I'm kinda lonely!</em></p>
+    )
+  }
+
+  const numItems = items.length;   // derive state use to calculate or track.
+  const alreadyPacked = items.filter((item) => item.packed).length; // filter done
+  const percentage = Math.round((alreadyPacked / numItems) * 100);
+
   return (
     <footer className="stats">
-      <em>You have (items) item on your list, you already packed (items) (items%)</em>
+      <em>{percentage === 100 ? "you are ready to go!" : `You have ${numItems} item on your list, you already packed ${alreadyPacked} (${percentage}%)`}</em>
     </footer>
   )
 }

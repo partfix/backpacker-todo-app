@@ -11,7 +11,6 @@ export default function App() {
 
 	function handleItems(item) {
 		setItems(items => [...items, item]); //store inside of the state
-		//we are using items.
 	}
 
 	function handleDelete(characId) {
